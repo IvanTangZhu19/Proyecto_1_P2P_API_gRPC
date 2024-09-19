@@ -9,8 +9,12 @@
 - Para correr el servidor:
   - `npm start` o `node server.js`
 
-- En los peer
+- En el peer
 
- - `npm init -y`
+  - `npm init -y`
 
- - `npm install @grpc/grpc-js @grpc/proto-loader`
+  - `npm install @grpc/grpc-js @grpc/proto-loader axios`
+ 
+  - `npx proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=./ *.proto`
+  
+  - `node server.js`
