@@ -40,7 +40,7 @@ server.post('/logout', (req, res) => {
     const a = verificarIP_Puerto(ip, puerto);
     if(a != -1) {
         peers[a].estado = false;
-        res.json({mensaje: "Se salió", peers});
+        res.json({mensaje: "Se salió correctamente", peers});
     } 
     else res.json({mensaje: "Error"});
 });
