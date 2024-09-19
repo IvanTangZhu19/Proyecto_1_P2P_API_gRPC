@@ -64,7 +64,7 @@ server.get('/buscar', (req, res)=>{
             if(arc[j] == archivo) ubicaciones.push(peers[i]); 
         }
     }
-    if(ubicaciones.length != 0) res.json({ubicaciones});
+    if(ubicaciones.length != 0) res.json({mensaje: "Se encontró", ubicaciones});
     else res.json({mensaje: "No en encontró el archivo"});
 });
 

@@ -6,8 +6,8 @@
 
   - `npm install express`
 
-- Para correr el servidor:
-  - `npm start` o `node server.js`
+  - Para correr el servidor:
+    - `npm start` o `node server.js`
 
 - En el peer
 
