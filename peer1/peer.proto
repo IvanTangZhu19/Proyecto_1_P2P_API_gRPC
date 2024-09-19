@@ -1,7 +1,9 @@
 syntax="proto3";
 
-service EnvioArchivos{
-    rpc descargarArchivo(Filerequest) returns (stream Filechunk);
+package EnvioDescargaArchivos;
+
+service EnvioDescargaArchivos{
+    rpc descargarArchivo(FileRequest) returns (stream FileChunk);
 
     rpc mandarArchivo(FileRequest) returns (status);
 }
