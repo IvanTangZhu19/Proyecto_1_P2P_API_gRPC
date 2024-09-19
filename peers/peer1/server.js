@@ -47,7 +47,13 @@ async function archivosPeer(){
 }
 
 async function buscar(){
-
+    if(response.data.mensaje == "Se salió correctamente"){
+        console.log(response.data.mensaje);
+        server.tryShutdown(() => {
+            console.log('Servidor gRPC cerrado');
+            process.exit(0);
+        });
+    } else console.log("Error en el logout");
 }
 
 server.addService(protoService.EnvioDescargaArchivos.service, {
