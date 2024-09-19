@@ -68,6 +68,10 @@ server.get('/buscar', (req, res)=>{
     else res.json({mensaje: "No en encontró el archivo"});
 });
 
+server.get('/peers', (req, res)=>{
+    res.json({peers});
+});
+
 server.listen(puerto, () => {
     console.log(`El server está escuchando en http://localhost:${puerto}`);
 });
