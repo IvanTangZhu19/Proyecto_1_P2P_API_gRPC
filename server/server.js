@@ -66,8 +66,9 @@ server.post('/archivosPeer', (req, res)=>{
 
 //Ruta GET que va a buscar el archivo en los diferentes peer
 //que están en el arreglo
-server.get('/buscar', (req, res)=>{
-    const { archivo } = req.body;
+server.get('/buscar/:archivo', (req, res)=>{
+    const archivo  = req.params.archivo;
+    console.log(archivo);
     var arc = [];
     var ubicaciones = [];
     for(let i=0; i < peers.length; i++){
@@ -77,7 +78,7 @@ server.get('/buscar', (req, res)=>{
         }
     }
     if(ubicaciones.length != 0) res.json({mensaje: "Se encontró", ubicaciones});
-    else res.json({mensaje: "No en encontró el archivo"});
+    else res.json({mensaje: "No se encontró el archivo"});
 });
 
 //Ruta GET para ver los peers
