@@ -47,16 +47,6 @@ async function archivosPeer(){
         console.log("Error en archivosPeer");
 }
 
-async function buscar(archivo){
-    const response = await axios.post('http://localhost:6000/buscar', archivo);
-    if(response.data.mensaje == "Se encontró"){
-        return response.data.ubicaciones;
-    } else {
-        console.log("Error en buscar");
-        return [];
-    };
-}
-
 server.addService(protoService.EnvioDescargaArchivos.service, {
     mandarArchivo: (call, callback) => {
         let nombreArchivo = '';
@@ -83,10 +73,9 @@ server.addService(protoService.EnvioDescargaArchivos.service, {
         });
     },
     recibirArchivo: (call, callback) => {
-        const fileName = call.request.file_name;
-        const ubicaciones = buscar(fileName);
-        const filePath = path.join(__dirname, 'archivos', fileName);
-        const fileStream = fs.createReadStream(filePath);
+        const nombreArchivo = call.request.file_name;
+        const rutaArchivo = path.join(__dirname, 'archivos', nombreArchivo);
+        const fileStream = fs.createReadStream(rutaArchivo);
         
         fileStream.on('data', (chunk) => {
             call.write({ data: chunk, file_name: fileName });
