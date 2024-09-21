@@ -3,16 +3,16 @@ syntax="proto3";
 package EnvioDescargaArchivos;
 
 service EnvioDescargaArchivos{
-    rpc recibirArchivo(FileRequest) returns (stream FileChunk);
+    rpc solicitarArchivo(FileRequest) returns (stream FileChunk);
 
-    rpc mandarArchivo(stream FileChunk) returns (status);
+    rpc mandarArchivo(stream FileChunk) returns (Status);
 }
 
 message FileRequest {
   string file_name = 1;
 }
 
-message status {
+message Status {
   bool success = 1; 
   string message = 2;
 }

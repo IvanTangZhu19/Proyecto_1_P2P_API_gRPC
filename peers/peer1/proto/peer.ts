@@ -12,7 +12,7 @@ export interface ProtoGrpcType {
     EnvioDescargaArchivos: SubtypeConstructor<typeof grpc.Client, _EnvioDescargaArchivos_EnvioDescargaArchivosClient> & { service: _EnvioDescargaArchivos_EnvioDescargaArchivosDefinition }
     FileChunk: MessageTypeDefinition
     FileRequest: MessageTypeDefinition
-    status: MessageTypeDefinition
+    Status: MessageTypeDefinition
   }
 }
 

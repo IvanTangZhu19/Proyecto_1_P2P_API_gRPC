@@ -2,8 +2,9 @@ const path = require('path');
 const grpc = require('@grpc/grpc-js');
 const protoLoader = require('@grpc/proto-loader');
 const axios = require('axios');
+const fs = require('fs');
 
-const PROTO_PATH = path.join(__dirname, './proto/peer.proto');
+const PROTO_PATH = path.join(__dirname, 'proto/peer.proto');
 
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
     keepCase: true,
@@ -28,20 +29,21 @@ async function buscar(archivo){
         return [];
     }
 }
+//Servicio
+const protoService = grpc.loadPackageDefinition(packageDefinition).EnvioDescargaArchivos;
 
-const protoService = grpc.loadPackageDefinition(packageDefinition);
-
-async function recibirArchivoPeer(archivo){
+//Función que recibe archivos de otros peers
+async function solicitarArchivoPeer(archivo){
+    //Llamada a función buscar que devuelve los archivos
     const ubicaciones = await buscar(archivo);
     var peer;
-    console.log(ubicaciones.length);
     if (ubicaciones.length > 0){
         peer = ubicaciones[0];
         const client = new protoService.EnvioDescargaArchivos(
             `${peer.ip}:${peer.puerto}`, grpc.credentials.createInsecure());
 
-        const call = client.recibirArchivo({ file_name: archivo });
-        const rutaArchivo = path.join(__dirname, 'archivos', archivo);
+        const call = client.solicitarArchivo({ file_name: archivo });
+        const rutaArchivo = path.join(__dirname, 'archivos', archivo + '_nuevo');
         const writeStream = fs.createWriteStream(rutaArchivo);
 
         call.on('data', (fileChunk) => {
@@ -49,7 +51,7 @@ async function recibirArchivoPeer(archivo){
         });
         call.on('end', () => {
             writeStream.end();
-            console.log(`Archivo ${fileName} recibido desde ${peer.ip}:${peer.puerto}`);
+            console.log(`Archivo ${archivo} recibido desde ${peer.ip}:${peer.puerto}`);
         });
         call.on('error', (error) => {
             console.error('Error al recibir el archivo:', error);
@@ -61,4 +63,4 @@ async function recibirArchivoPeer(archivo){
 
 const archivo = "hola.txt";
 
-recibirArchivoPeer(archivo);
+solicitarArchivoPeer(archivo);

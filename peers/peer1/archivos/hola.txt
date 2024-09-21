@@ -1,3 +1,2 @@
 Hola
-Proyecto 1 de Arquitectura en nube y Sistemas Distribuidos
-Archivo del peer 1
+Archivo del peer 1 de prueba

@@ -1,12 +1,12 @@
 // Original file: peer.proto
 
 
-export interface status {
+export interface Status {
   'success'?: (boolean);
   'message'?: (string);
 }
 
-export interface status__Output {
+export interface Status__Output {
   'success': (boolean);
   'message': (string);
 }

@@ -72,13 +72,13 @@ server.addService(protoService.EnvioDescargaArchivos.service, {
             });
         });
     },
-    recibirArchivo: (call, callback) => {
+    solicitarArchivo: (call, callback) => {
         const nombreArchivo = call.request.file_name;
         const rutaArchivo = path.join(__dirname, 'archivos', nombreArchivo);
         const fileStream = fs.createReadStream(rutaArchivo);
         
         fileStream.on('data', (chunk) => {
-            call.write({ data: chunk, file_name: fileName });
+            call.write({ data: chunk, file_name: nombreArchivo });
         });
 
         fileStream.on('end', () => {
