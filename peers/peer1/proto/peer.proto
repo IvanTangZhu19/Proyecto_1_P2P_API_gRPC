@@ -3,9 +3,9 @@ syntax="proto3";
 package EnvioDescargaArchivos;
 
 service EnvioDescargaArchivos{
-    rpc descargarArchivo(FileRequest) returns (stream FileChunk);
+    rpc recibirArchivo(FileRequest) returns (stream FileChunk);
 
-    rpc mandarArchivo(FileRequest) returns (status);
+    rpc mandarArchivo(stream FileChunk) returns (status);
 }
 
 message FileRequest {

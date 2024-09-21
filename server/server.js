@@ -2,6 +2,7 @@ const express = require('express');
 
 const server = express();
 
+//Para el manejo de JSON
 server.use(express.json());
 
 //variables
@@ -18,7 +19,7 @@ function verificarIP_Puerto(ip, puerto){
     return -1;
 }
 
-//Ruta POST de login: añade una ip y puerto al rreglo
+//Ruta POST de login: añade una ip y puerto al arreglo
 //o actualiza estado si ya está en el arreglo
 server.post('/login', (req, res) => {
     const { ip, puerto } = req.body;
@@ -72,7 +73,7 @@ server.get('/buscar', (req, res)=>{
     for(let i=0; i < peers.length; i++){
         arc = peers[i].archivos;
         for(let j=0; j < arc.length; j++){
-            if(arc[j] == archivo) ubicaciones.push(peers[i]); 
+            if(arc[j] == archivo && peers[i].estado == true) ubicaciones.push(peers[i]); 
         }
     }
     if(ubicaciones.length != 0) res.json({mensaje: "Se encontró", ubicaciones});

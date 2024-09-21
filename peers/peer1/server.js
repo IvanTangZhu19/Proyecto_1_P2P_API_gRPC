@@ -59,13 +59,46 @@ async function buscar(archivo){
 
 server.addService(protoService.EnvioDescargaArchivos.service, {
     mandarArchivo: (call, callback) => {
-        const fileName = 'uploaded_' + Date.now(); // Genera un nombre único para el archivo
-        const writeStream = fs.createWriteStream(fileName);
+        let nombreArchivo = '';
+        const chunks = [];
+
+        call.on('data', (fileChunk) => {
+            nombreArchivo = fileChunk.file_name;
+            chunks.push(fileChunk.data);
+        });
+
+        call.on('end', () => {
+            const Buffer = Buffer.concat(chunks);
+            const rutaArchivo = path.join(__dirname, 'archivos', nombreArchivo);
+
+            fs.writeFile(rutaArchivo, Buffer, (err) => {
+                if (err) {
+                    console.error('Error al guardar el archivo:', err);
+                    callback(null, { success: false, mensaje: 'Error al guardar el archivo' });
+                } else {
+                    console.log(`Archivo recibido y guardado: ${nombreArchivo}`);
+                    callback(null, { success: true, mensaje: 'Archivo recibido exitosamente' });
+                }
+            });
+        });
     },
-    descargarArchivo: (call, callback) => {
+    recibirArchivo: (call, callback) => {
         const fileName = call.request.file_name;
         const ubicaciones = buscar(fileName);
+        const filePath = path.join(__dirname, 'archivos', fileName);
+        const fileStream = fs.createReadStream(filePath);
+        
+        fileStream.on('data', (chunk) => {
+            call.write({ data: chunk, file_name: fileName });
+        });
 
+        fileStream.on('end', () => {
+            call.end();
+        });
+        fileStream.on('error', (err) => {
+            console.error('Error al leer el archivo:', err);
+            call.destroy(err);
+        });
 
     }
 })
