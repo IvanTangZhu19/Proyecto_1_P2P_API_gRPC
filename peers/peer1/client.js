@@ -17,7 +17,7 @@ async function buscar(archivo){
     try {
         const response = await axios.get(`http://localhost:6000/buscar/${archivo}`);
         if(response.data.mensaje == "Se encontró"){
-            console.log(response.data.ubicaciones);
+            //console.log(response.data.ubicaciones);
             return response.data.ubicaciones;
         } else {
             console.log("Error en buscar");
@@ -25,14 +25,16 @@ async function buscar(archivo){
         }
     } catch (error) {
         console.log(error);
+        return [];
     }
 }
 
 const protoService = grpc.loadPackageDefinition(packageDefinition);
 
-function recibirArchivoPeer(archivo){
-    const ubicaciones = buscar(archivo);
+async function recibirArchivoPeer(archivo){
+    const ubicaciones = await buscar(archivo);
     var peer;
+    console.log(ubicaciones.length);
     if (ubicaciones.length > 0){
         peer = ubicaciones[0];
         const client = new protoService.EnvioDescargaArchivos(
@@ -47,7 +49,7 @@ function recibirArchivoPeer(archivo){
         });
         call.on('end', () => {
             writeStream.end();
-            console.log(`Archivo ${fileName} recibido desde ${peerIp}:${peerPort}`);
+            console.log(`Archivo ${fileName} recibido desde ${peer.ip}:${peer.puerto}`);
         });
         call.on('error', (error) => {
             console.error('Error al recibir el archivo:', error);
@@ -59,6 +61,4 @@ function recibirArchivoPeer(archivo){
 
 const archivo = "hola.txt";
 
-//recibirArchivoPeer(archivo);
-
-console.log(buscar(archivo));
+recibirArchivoPeer(archivo);
