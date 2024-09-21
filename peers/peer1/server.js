@@ -88,13 +88,12 @@ server.addService(protoService.EnvioDescargaArchivos.service, {
             console.error('Error al leer el archivo:', err);
             call.destroy(err);
         });
-
     }
 })
 
-server.bindAsync('localhost:6001', grpc.ServerCredentials.createInsecure(), () => {
+server.bindAsync(configJSON.ip + ':' + configJSON.puerto, grpc.ServerCredentials.createInsecure(), () => {
     server.start();
-    console.log('Servidor gRPC iniciado en el puerto 6001');
+    console.log('Servidor gRPC iniciado en el puerto ' + configJSON.puerto);
     login();
 })
 

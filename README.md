@@ -15,10 +15,12 @@
 
   - Instala lo necesario 
   
-  `npm install @grpc/grpc-js @grpc/proto-loader axios`
+  - `npm install @grpc/grpc-js @grpc/proto-loader axios`
  
   - `npx proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=./ *.proto`
   
+  - Para ejecutar el server y client de gRPC
+
   - `node server.js`
 
   - `node client.js`

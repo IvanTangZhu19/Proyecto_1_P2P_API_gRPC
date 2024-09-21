@@ -14,7 +14,8 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 })
 
 async function buscar(archivo){
-    const response = await axios.post('http://localhost:6000/buscar', archivo);
+    const arc = {archivo: archivo};
+    const response = await axios.get('http://localhost:6000/buscar', arc);
     if(response.data.mensaje == "Se encontró"){
         return response.data.ubicaciones;
     } else {
@@ -23,7 +24,7 @@ async function buscar(archivo){
     };
 }
 
-const protoService = grpc.loadPackageDefinition(packageDefinition).EnvioDescargaArchivos;
+const protoService = grpc.loadPackageDefinition(packageDefinition);
 
 function recibirArchivoPeer(archivo){
     const ubicaciones = buscar(archivo);
@@ -47,6 +48,8 @@ function recibirArchivoPeer(archivo){
         call.on('error', (error) => {
             console.error('Error al recibir el archivo:', error);
         });
+    } else {
+        console.log("No se encontró");
     }
 }
 
