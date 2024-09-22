@@ -75,8 +75,6 @@ function enviarArchivoAPeer(nombreArchivo, peerIP, peerPuerto) {
     const call = client.mandarArchivo((error, response) => {
         if (error) {
             console.error('Error al mandar el archivo al peer:', error);
-        } else {
-            console.log('Respuesta del peer:', response.mensaje);
         }
     });
 
@@ -99,4 +97,4 @@ const archivo = "hola.txt";
 
 //solicitarArchivoPeer(archivo);
 
-enviarArchivoAPeer(archivo, "localhost", 6001);
+enviarArchivoAPeer(archivo, "localhost", 6002);

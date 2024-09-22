@@ -95,8 +95,8 @@ function enviarArchivoAPeer(nombreArchivo, peerIP, peerPuerto) {
     });
 }
 
-const archivo = "hola.txt";
+const archivo = "cancion.mp3";
 
-//solicitarArchivoPeer(archivo);
+solicitarArchivoPeer(archivo);
 
-enviarArchivoAPeer(archivo, "localhost", 6001);
+//enviarArchivoAPeer(archivo, "localhost", 6001);
