@@ -2,9 +2,25 @@
 
 - En el servidor:
 
-  - Instala las librerías de node necesarias para el funcionamiento del API
+  - Instala las librerías de node necesarias para el funcionamiento del API con Express JS
 
-  - `npm install`
+  - `npm install express`
 
-- Para correr el servidor:
-  - `npm start` o `node server.js`
+  - Para correr el servidor:
+    - `npm start` o `node server.js`
+
+- En el peer
+
+  - `npm init -y`
+
+  - Instala lo necesario 
+  
+  - `npm install @grpc/grpc-js @grpc/proto-loader axios`
+ 
+  - `npx proto-loader-gen-types --longs=String --enums=String --defaults --oneofs --grpcLib=@grpc/grpc-js --outDir=./ *.proto`
+  
+  - Para ejecutar el server y client de gRPC
+
+  - `node server.js`
+
+  - `node client.js`
