@@ -6,6 +6,7 @@ const fs = require('fs');
 
 const PROTO_PATH = path.join(__dirname, './proto/peer.proto');
 const config = require('./config.json');
+const ipServer = 'http://localhost:6000';
 
 const configJSON = {
     ip: config.ip,
@@ -26,13 +27,13 @@ const protoService = grpc.loadPackageDefinition(packageDefinition).EnvioDescarga
 const server = new grpc.Server();
 
 async function login(){
-    const response = await axios.post('http://localhost:6000/login', configJSON);
+    const response = await axios.post(ipServer+'/login', configJSON);
     if(response.data.mensaje == "Se registró correctamente"){
         archivosPeer();
     } else console.log("Error en el login");
 }
 async function logout(){
-    const response = await axios.post('http://localhost:6000/logout', configJSON);
+    const response = await axios.post(ipServer+'/logout', configJSON);
     if(response.data.mensaje == "Se salió correctamente"){
         console.log(response.data.mensaje);
         server.tryShutdown(() => {
@@ -42,7 +43,7 @@ async function logout(){
     } else console.log("Error en el logout");
 }
 async function archivosPeer(){
-    const response = await axios.post('http://localhost:6000/archivosPeer', configJSON);
+    const response = await axios.post(ipServer+'/archivosPeer', configJSON);
     if( ! response.data.mensaje == "Se registró correctamente") 
         console.log("Error en archivosPeer");
 }

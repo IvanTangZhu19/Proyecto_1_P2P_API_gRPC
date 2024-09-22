@@ -6,6 +6,8 @@ const fs = require('fs');
 
 const PROTO_PATH = path.join(__dirname, 'proto/peer.proto');
 
+const ipServer = 'http://localhost:6000';
+
 const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
     keepCase: true,
     longs: String,
@@ -16,7 +18,7 @@ const packageDefinition = protoLoader.loadSync(PROTO_PATH, {
 
 async function buscar(archivo){
     try {
-        const response = await axios.get(`http://localhost:6000/buscar/${archivo}`);
+        const response = await axios.get(`${ipServer}/buscar/${archivo}`);
         if(response.data.mensaje == "Se encontró"){
             //console.log(response.data.ubicaciones);
             return response.data.ubicaciones;
@@ -95,6 +97,6 @@ function enviarArchivoAPeer(nombreArchivo, peerIP, peerPuerto) {
 
 const archivo = "hola.txt";
 
-//solicitarArchivoPeer(archivo);
+solicitarArchivoPeer(archivo);
 
-enviarArchivoAPeer(archivo, "localhost", 6002);
+//enviarArchivoAPeer(archivo, "localhost", 6002);
