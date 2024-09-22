@@ -87,6 +87,6 @@ server.get('/peers', (req, res)=>{
 });
 
 //Escucha en el puerto 6000
-server.listen(puerto, () => {
-    console.log(`El server está escuchando en http://localhost:${puerto}`);
+server.listen(puerto, '0.0.0.0',() => {
+    console.log(`El server está escuchando en el puerto ${puerto}`);
 });

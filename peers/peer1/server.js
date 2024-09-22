@@ -6,7 +6,7 @@ const fs = require('fs');
 
 const PROTO_PATH = path.join(__dirname, './proto/peer.proto');
 const config = require('./config.json');
-const ipServer = 'http://localhost:6000';
+const ipServer = 'http://0.0.0.0:6000';
 
 const configJSON = {
     ip: config.ip,
