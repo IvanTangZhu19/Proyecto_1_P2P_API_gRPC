@@ -92,7 +92,7 @@ server.addService(protoService.EnvioDescargaArchivos.service, {
     }
 })
 
-server.bindAsync(configJSON.ip + ':' + configJSON.puerto, grpc.ServerCredentials.createInsecure(), () => {
+server.bindAsync('0.0.0.0:' + configJSON.puerto, grpc.ServerCredentials.createInsecure(), () => {
     server.start();
     console.log('Servidor gRPC iniciado en el puerto ' + configJSON.puerto);
     login();

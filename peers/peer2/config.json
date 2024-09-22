@@ -1,5 +1,5 @@
 {
-    "ip":"localhost",
+    "ip":"0.0.0.0",
     "puerto": 6002,
     "archivos": ["hola.txt", "cancion.mp3"]
 }
