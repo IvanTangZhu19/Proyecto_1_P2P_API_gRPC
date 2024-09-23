@@ -112,4 +112,4 @@ const archivo = "hola.txt";
 
 solicitarArchivoPeer(archivo);
 
-//enviarArchivoAPeer(archivo, "localhost", 6002);
+enviarArchivoAPeer(archivo, "localhost", 6002);
