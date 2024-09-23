@@ -1,0 +1,23 @@
+syntax="proto3";
+
+package EnvioDescargaArchivos;
+
+service EnvioDescargaArchivos{
+    rpc solicitarArchivo(FileRequest) returns (stream FileChunk);
+
+    rpc mandarArchivo(stream FileChunk) returns (Status);
+}
+
+message FileRequest {
+  string file_name = 1;
+}
+
+message Status {
+  bool success = 1; 
+  string message = 2;
+}
+
+message FileChunk {
+  bytes data = 1;        // Los datos del archivo en binario
+  string file_name = 2;  // Nombre del archivo
+}
