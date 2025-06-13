@@ -1,6 +1,6 @@
 # Proyecto_1_P2P_API_gRPC
 
-Proyecto 1 del curso Arquitecturas de nube y sistemas distribuidos que consiste en la implementación de una comunicación en una red P2P mediante API REST Y gRPC
+Proyecto 1 del curso Arquitecturas de nube y sistemas distribuidos que consiste en la implementación de una comunicación en una red P2P (peer to peer) utilizando máquinas virtuales EC2 de AWS y para la comunicación entre peers se realiza mediante API REST Y gRPC
 
 - Desarrollo:
 
